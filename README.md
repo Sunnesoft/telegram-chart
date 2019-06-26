@@ -4,4 +4,4 @@
 
 The app is based on native JavaScript (use Ajax)
 
-### For check go to link: https://sunnesoft.github.io/telegram-chart/ or https://tchart.6te.net
+### For check go to link: https://sunnesoft.github.io/telegram-chart/index.html or https://tchart.6te.net
