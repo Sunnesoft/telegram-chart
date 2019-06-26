@@ -1,0 +1,35 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  	<title>Стили</title>
+  	<link rel="stylesheet" type="text/css" href="tgraph.css">
+</head>
+<body class="day">
+
+<div id="wrapper">
+
+</div>
+
+<div class="tchart_mode_switch">
+	<a id="tchart_mode_button" onclick="toggleNightMode()">Switch to night mode</a>
+</div>
+
+<script type="text/javascript" src="tgraph2.js"></script>
+<script>
+  function toggleNightMode() {
+    document.body.classList.toggle('day');
+    document.body.classList.toggle('night');
+
+    if (document.body.classList.contains('day')) 
+    {
+		document.getElementById('tchart_mode_button').innerText = 'Switch to night mode';
+    } 
+    else 
+    {
+		document.getElementById('tchart_mode_button').innerText = 'Switch to day mode';
+    }
+  }
+</script>
+</body>
+</html>

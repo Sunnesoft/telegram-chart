@@ -1,0 +1,543 @@
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+@keyframes updown {
+  10%, 90% {
+    right: 4%;
+  }
+  
+  20%, 80% {
+    right: 6%;
+  }
+
+  30%, 50%, 70% {
+    right: 4%;
+  }
+
+  40%, 60% {
+    right: 6%;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Open Sans",Arial,Helvetica,sans-serif;
+  width: 100%;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+body.night {
+  background-color: #242F3E;
+  color: #FFFFFF;
+  transition-duration: 0.3s;
+  transition-delay: 0.0s;
+  transition-timing-function: linear;
+}
+
+svg {
+  transform: translateZ(0);
+}
+
+#wrapper {
+  /*margin: 0px 100px;*/
+  width: 100%;
+  overflow: hidden;
+}
+
+.tchart_mode_switch {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+#tchart_mode_button {
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 30px 50px;
+}
+
+.tchart_root {
+  margin: 10px 30px;
+}      
+
+.tchart_tl,
+.tchart_xl,
+.tchart_grid,
+.tchart_title *,
+.tchart_title,
+.tchart_legend_el,
+.tchart_mode_switch,
+.tchart_vp *{
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none; 
+}
+
+.tchart_tl {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+}         
+
+.tchart_plot_line {
+    padding: 0px 30px;
+    margin-left: -30px;
+}   
+
+.tchart_vp
+{
+/*  transition:transform 0.2s ease-out 0s;*/
+  /*will-change: transform; */
+}
+
+.tchart_plot_line g,
+.tchart_plot_line g path,
+.tchart_tl_plot g,
+.tchart_tl_plot g path{
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /*will-change: transform, opacity; */
+} 
+ 
+.tchart_plot_line g, 
+.tchart_plot_line g path,
+.tchart_plot_bar g, 
+.tchart_plot_bar g path,
+.tchart_plot_area g, 
+.tchart_plot_area g path{
+  transform-origin: top left;
+  transition:transform 0.2s ease-out 0s,
+             opacity 0.2s ease-out 0s;
+  /*will-change: transform, opacity;*/
+  cursor: pointer;
+}   
+
+.tchart_circle_area_path {
+  transition-property: opacity;
+}
+
+.tchart_tl_plot {
+
+}   
+
+.tchart_tl_h {
+position: absolute;
+    display: block;
+    top: 0px;
+    border-style: solid;
+    border-width: 2px 2px;
+    border-color: rgb(192,209,225);
+    border-radius: 14px;
+    box-shadow: 0px 0px 0px 100vw rgba(226, 238, 249, 0.5);
+    overflow: hidden;
+}       
+
+body.night .tchart_tl_h {
+  border-color: #56626D;
+  box-shadow: 0px 0px 0px 100vw rgba(48, 66, 89, 0.6);
+}      
+
+.tchart_tl_h_r,
+.tchart_tl_h_l  {
+  width: 15px;
+  top: -3px;
+  position: absolute;
+  display: block;
+  background-color: #fff;
+  border: 1px solid rgb(192,209,225);
+  cursor: w-resize;
+}  
+
+.tchart_tl_h_r {
+  right:0;
+  box-shadow: -2px 0px 0px 7px rgb(192,209,225) inset;
+}   
+
+.tchart_tl_h_l  {
+  left:0;
+  box-shadow: 2px 0px 0px 7px rgb(192,209,225) inset;
+} 
+
+body.night .tchart_tl_h_l,
+body.night .tchart_tl_h_r {
+  background-color: #fff;
+  box-shadow: 2px 0px 0px 7px #56626D inset;
+  border: 1px solid #56626D;
+}
+
+body.night .tchart_tl_h_r {
+  box-shadow: -2px 0px 0px 7px #56626D inset;
+}   
+
+body.night .tchart_tl_h_l  {
+  box-shadow: 2px 0px 0px 7px #56626D inset;
+} 
+
+.tchart_xl_root {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 0px 30px;
+  margin-left: -30px;
+  height: 1.5em;
+}
+
+.tchart_xl {
+  position: absolute;
+  display: block;
+  margin-left: 30px;
+}
+
+.tchart_xl_text {
+  position: absolute;
+  display: block;
+  transform: translate(-50%);
+  text-align: center;
+  transition: opacity 0.2s ease-out 0s;
+}
+
+.tchart_grid {
+  position: absolute;
+  *overflow: hidden;
+  display: block;
+  cursor: crosshair;
+}
+
+.tchart_grid_line{
+  position: absolute;
+  display: block;
+  box-shadow: inset 0 -1px 0 rgba(24, 45, 59, 0.1);
+  transition-duration: 0.2s;
+  transition-delay: 0.1s;
+  transition-timing-function: linear;
+  z-index: 2;
+}
+
+body.night .tchart_grid_line{
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.tchart_grid_label{
+  position: absolute;
+  transform: translateY(-100%);
+  z-index: 2;
+}
+
+.tchart_grid_label_right{
+  position: absolute;
+  transform: translate(-100%,-100%);
+  z-index: 2;
+}
+
+.tchart_xl_text,
+.tchart_grid_label,
+.tchart_grid_label_right{
+  font-size: 14px;
+  color: #8E8E93;
+}
+
+body.night .tchart_xl_text,
+body.night .tchart_grid_label,
+body.night .tchart_grid_label_right{
+  color: rgba(163, 177, 194, 0.6);
+}
+
+.tchart_root.area .tchart_xl_text,
+.tchart_root.area .tchart_grid_label,
+.tchart_root.area .tchart_grid_label_right,
+.tchart_root.bar .tchart_xl_text,
+.tchart_root.bar .tchart_grid_label,
+.tchart_root.bar .tchart_grid_label_right{
+  color: rgba(37, 37, 41, 0.5);
+}
+
+body.night .tchart_root.area .tchart_xl_text,
+body.night .tchart_root.bar .tchart_xl_text,
+body.night .tchart_root.area .tchart_grid_label,
+body.night .tchart_root.area .tchart_grid_label_right,
+body.night .tchart_root.bar .tchart_grid_label,
+body.night .tchart_root.bar .tchart_grid_label_right
+{
+  color: rgba(236, 242, 248, 0.5);  
+}
+
+.tchart_title {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.tchart_title_label ,
+.tchart_title_zoomout ,
+.tchart_title_status {
+  display: none;
+  float: left;
+  opacity: 0;
+  transition-duration: 0.2s;
+  transition-delay: 0.0s;
+  transition-timing-function: linear;
+  padding: 5px 10px;
+}
+
+.tchart_title_zoomout *{
+  float: left;
+  cursor: pointer;
+}
+
+.tchart_title_zoomout p{
+  color: #108BE3;
+  margin-left: 10px;
+}
+
+.tchart_title_status {
+  float: right;
+  font-size: 14px;
+}
+
+.tchart_title_label.active,
+.tchart_title_zoomout.active,
+.tchart_title_status.active {
+  opacity: 1;
+  display: block;
+  transition-duration: 0.2s;
+  transition-delay: 0.0s;
+  transition-timing-function: linear;
+}
+
+.tchart_legend {
+  position: relative;
+  display: inline-block;
+}
+
+.tchart_legend_el {
+  box-shadow: inset 0px 0px 0px 1px;
+  border-radius: 20px;
+  margin: 10px 10px 10px 0px;
+  padding: 5px 5px;
+  cursor: pointer;
+
+  transition-duration: 0.2s;
+  transition-delay: 0.0s;
+  transition-timing-function: linear;
+}
+
+.tchart_legend_el.active {
+  box-shadow: none;
+}
+
+.tchart_legend_el.active .tchart_legend_el_text{
+  color: #fff;
+}
+
+.tchart_legend_el.nope {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.tchart_legend_el,
+.tchart_legend_el_text,
+.tchart_checkmark {
+  position: relative;
+  float: left;
+  display: inline-block;
+}
+
+.tchart_legend_el_text {
+  padding: 5px 10px 0px 5px;
+  min-width:20px;
+  min-height:20px;
+  color: #000;
+}
+
+body.night .tchart_legend_el_text {
+  color: #fff;
+}
+
+.tchart_zoom {
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 0.8em;
+  position: relative;
+  border: 2px solid #108BE3;
+  margin-top: 0.0em;
+}
+
+.tchart_zoom:after {
+  content: '';
+  height: 0.1em;
+  width: 0.5em;
+  background: #108BE3;
+  display: block;
+  top: 0.35em;
+  left: 0.15em;
+  position: absolute;
+}
+
+.tchart_zoom_inner {
+  width: 0.5em;
+  height: 0.2em;
+  display: block;
+  background: #108BE3;
+  position: absolute;
+  top: 0.8em;
+  left: 0.7em;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.tchart_checkmark {
+  background-color: white;
+  border: 4px solid #ccc;
+  min-width:20px;
+  min-height:20px;
+  border-radius: 20px;
+}
+
+body.night .tchart_checkmark {
+  background-color: #1C2533;
+}
+
+.tchart_legend_el.active .tchart_checkmark:after{
+  position:absolute;
+  content: "L";
+  left:0;
+  right:0;
+  bottom:0;
+  top:0;
+  text-align:center;
+  color: white;
+  font-family: arial;
+  transform: scaleX(-1) rotate(-35deg);
+}
+
+.tchart_grid_pointer {
+  background-color: white;
+  border: 2px solid #ccc;
+  min-width: 6px;
+  min-height: 6px;
+  border-radius: 7px;
+  position: absolute;
+  opacity: 0;
+  margin: -5px 0px 0px -5px;
+  z-index: 1;
+}
+
+body.night .tchart_grid_pointer {
+  background-color: #242F3E;
+}
+
+.tchart_grid_pointer_bar {
+  background-color: rgba(93, 95, 97, 0.1);
+  min-width: 2px;
+  min-height: 100%;
+  position: absolute;
+  top:0;
+  opacity: 0;
+  z-index: 1;  
+  margin-left: -1px;
+}
+
+.tchart_grid_info {
+  font-size: 14;
+  border-radius: 7px;
+  background-color: white;
+  padding: 5px 10px;
+  position: absolute;
+  top:5%;
+  opacity: 0;
+  z-index: 3; 
+  border: 1px solid rgba(93, 95, 97, 0.5);
+  transform: translateX(-50%);
+
+  transition-property: opacity;
+  transition-duration: 0.3s;
+  transition-delay: 0.0s;
+  transition-timing-function: ease-in;
+  cursor: pointer;
+}
+
+body.night .tchart_grid_info {
+  background-color: #1C2533;
+  border: 1px solid #1C2533;
+  color: white;
+}
+
+.tchart_grid_info *{
+  pointer-events: none;
+}
+
+.tchart_grid_info_date,
+.tchart_grid_info_link,
+.tchart_grid_info_label {
+  display: inline-block;
+  float: left;
+  padding: 0px 5px;
+  font-weight: 600;
+}
+
+.tchart_grid_info_label {
+  clear: both;
+  font-weight: 300;
+}
+
+.tchart_grid_info:hover .tchart_grid_info_link:before {
+    animation: updown 0.82s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.tchart_grid_info_link:before {
+  content: '';
+  position: absolute;
+  right: 5%;
+  top: 0.5em;
+  width: 0.6em;
+  height: 0.6em;
+  border-top: solid 1px rgba(93, 95, 97, 0.5);
+  border-right: solid 1px rgba(93, 95, 97, 0.5);
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+body.night .tchart_grid_info_link:before {
+  border-top: solid 1px rgba(0, 105, 166, 1);
+  border-right: solid 1px rgba(0, 105, 166, 1);  
+}
+
+.tchart_grid_info_label_item {
+  min-width: 170px;
+  clear: both;
+  padding: 5px 3px;
+}
+
+.tchart_grid_info_label_item > div:first-child{
+  float: left;
+}
+
+.tchart_grid_info_label_item > div:last-child{
+  float: right;
+}
